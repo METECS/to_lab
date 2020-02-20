@@ -405,8 +405,23 @@ void TO_output_data_types_packet(void)
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 void TO_output_status(void)
 {
-    CFE_SB_TimeStampMsg((CFE_SB_Msg_t *) &to_hk_status);
-    CFE_SB_SendMsg((CFE_SB_Msg_t *)&to_hk_status);
+    {
+        /*
+         * Create and use a temporary structure to ensure type alignment
+         */
+        CFE_SB_Msg_t tempMessage;
+        memcpy(&tempMessage, &to_hk_status, sizeof(tempMessage));
+
+        CFE_SB_TimeStampMsg((CFE_SB_Msg_t *) &tempMessage);
+        CFE_SB_SendMsg((CFE_SB_Msg_t *)&tempMessage);
+
+        /*
+         * Copy the temporary message back to the original source as a good practice
+         * even if not used later
+         */
+        memcpy(&to_hk_status, &tempMessage, sizeof(tempMessage));
+    }
+
 } /* End of TO_output_status() */
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
