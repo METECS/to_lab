@@ -409,7 +409,11 @@ void TO_output_status(void)
         /*
          * Create and use a temporary structure to ensure type alignment
          */
-        CFE_SB_Msg_t tempMessage;
+        union {
+           CFE_SB_Msg_t attr1;
+           to_hk_tlm_t attr2;
+        } tempMessage;
+           
         memcpy(&tempMessage, &to_hk_status, sizeof(tempMessage));
 
         CFE_SB_TimeStampMsg((CFE_SB_Msg_t *) &tempMessage);

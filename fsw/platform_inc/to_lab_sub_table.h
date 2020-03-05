@@ -39,6 +39,9 @@
 
 #include "sample_app_msgids.h"
 
+#include "bcamp_io_app_msgids.h"
+#include "bcamp_mn_app_msgids.h"
+
 #if 0
 #include "hs_msgids.h"
 #include "fm_msgids.h"
@@ -77,6 +80,10 @@ static TO_subscription_t  TO_SubTable[] =
             {CFE_ES_SHELL_TLM_MID,       {0,0}, 32},
             {CFE_ES_APP_TLM_MID,         {0,0},  4},
             {CFE_ES_MEMSTATS_TLM_MID,    {0,0},  4},
+
+            /* bootcamp application subscriptions */
+            {BCAMP_IO_APP_HK_TLM_MID,     {0,0},  4},
+            {BCAMP_MN_APP_HK_TLM_MID,     {0,0},  4},
 
             {TO_UNUSED,              {0,0},  0},
             {TO_UNUSED,              {0,0},  0},
