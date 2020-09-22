@@ -41,7 +41,10 @@
 
 typedef struct
 {
-    uint8              TlmHeader[CFE_SB_TLM_HDR_SIZE];
+    union {
+        uint8          TlmHeader[CFE_SB_TLM_HDR_SIZE];
+        uint32         align;
+    } align;
     uint8              command_counter;
     uint8              command_error_counter;
     uint8              spareToAlign[2];
